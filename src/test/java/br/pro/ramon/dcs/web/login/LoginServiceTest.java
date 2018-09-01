@@ -9,8 +9,8 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginAutorizado() throws IOException {
-        String login = "admin";
-        String senha = "r**t";
+        String login = usuarioDigitou("admin");
+        String senha = usuarioDigitou("r**t");
 
         LoginService svc = new LoginService();
         boolean autorizado = svc.isAutorizado(login, senha);
@@ -20,8 +20,8 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginErrado() throws IOException {
-        String login = "usuario";
-        String senha = "r**t";
+        String login = usuarioDigitou("usuario");
+        String senha = usuarioDigitou("r**t");
 
         LoginService svc = new LoginService();
         boolean autorizado = svc.isAutorizado(login, senha);
@@ -31,8 +31,8 @@ public class LoginServiceTest {
 
     @Test
     public void testSenhaErrada() throws IOException {
-        String login = "admin";
-        String senha = "123456";
+        String login = usuarioDigitou("admin");
+        String senha = usuarioDigitou("123456");
 
         LoginService svc = new LoginService();
         boolean autorizado = svc.isAutorizado(login, senha);
@@ -42,13 +42,19 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginESenhaErrados() throws IOException {
-        String login = "usuario";
-        String senha = "123456";
+        String login = usuarioDigitou("usuario");
+        String senha = usuarioDigitou("123456");
 
         LoginService svc = new LoginService();
         boolean autorizado = svc.isAutorizado(login, senha);
 
         assertThat(autorizado, is(false));
+    }
+
+    private String usuarioDigitou(String texto) {
+        StringBuilder entrada = new StringBuilder();
+        entrada.append(texto);
+        return entrada.toString();
     }
 
 }
