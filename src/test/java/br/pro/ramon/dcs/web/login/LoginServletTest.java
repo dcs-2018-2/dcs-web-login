@@ -2,10 +2,10 @@ package br.pro.ramon.dcs.web.login;
 
 import java.io.IOException;
 import static org.hamcrest.CoreMatchers.is;
-import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
-import org.junit.Test;
+import org.jsoup.nodes.Document;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class LoginServletTest {
 
@@ -49,18 +49,13 @@ public class LoginServletTest {
         assertThat(saida, is("Não Autorizado"));
     }
 
-    public String acessaServletPelolNavegador(String login, String senha) throws IOException {
-        String urlBase = "http://localhost:8084/dcs-web-login";
-        String servlet = "/login";
-        String url = urlBase + servlet;
-
-        String saida = Jsoup.connect(url)
+    private String acessaServletPelolNavegador(String login, String senha) throws IOException {
+        Document html = Jsoup.connect("http://localhost:8084/dcs-web-login/login")
                 .data("login", login)
                 .data("senha", senha)
-                .method(Method.POST)
-                .execute()
-                .charset("ISO-8859-1")
-                .body();
+                .post();
+
+        String saida = html.body().text();
 
         return saida;
     }
