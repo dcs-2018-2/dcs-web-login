@@ -94,6 +94,7 @@
                 <version>2.10</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
+                    <test>br.pro.ramon.dcs.web.login.AllTests</test>
                 </configuration>
             </plugin>
         </plugins>
